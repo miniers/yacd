@@ -25,7 +25,7 @@ export function buildWebSocketURL(apiConfig: ClashAPIConfig, endpoint: string) {
   if (typeof secret === 'string' && secret !== '') {
     qs += '?token=' + encodeURIComponent(secret);
   }
-  const url = new URL(baseURL);
+  const url = new URL(baseURL.match(/\//)?`${location.origin}${baseURL}`:baseURL);
   url.protocol === 'https:' ? (url.protocol = 'wss:') : (url.protocol = 'ws:');
   return `${trimTrailingSlash(url.href)}${endpoint}${qs}`;
 }

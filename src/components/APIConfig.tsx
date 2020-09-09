@@ -100,11 +100,6 @@ export default connect(mapState)(APIConfig);
 
 async function verify(apiConfig: ClashAPIConfig): Promise<[number, string?]> {
   try {
-    new URL(apiConfig.baseURL);
-  } catch (e) {
-    return [1, 'Invalid URL'];
-  }
-  try {
     const res = await fetchConfigs(apiConfig);
     if (res.status > 399) {
       return [1, res.statusText];

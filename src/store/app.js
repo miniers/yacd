@@ -133,17 +133,9 @@ export function initialState() {
   const query = parseConfigQueryString();
 
   const conf = s.clashAPIConfigs[s.selectedClashAPIConfigIndex];
-  const url = new URL(conf.baseURL);
-  if (query.hostname) {
-    url.hostname = query.hostname;
+  if(query.baseURL){
+    conf.baseURL = trimTrailingSlash(decodeURIComponent(query.baseURL))
   }
-  if (query.port) {
-    url.port = query.port;
-  }
-  // url.href is a stringifier and it appends a trailing slash
-  // that is not we want
-  conf.baseURL = trimTrailingSlash(url.href);
-
   if (query.secret) {
     conf.secret = query.secret;
   }
